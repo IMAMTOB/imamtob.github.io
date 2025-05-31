@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Cek Kelulusan MI Al Hikmah Mijen 2024/2025</title>
+  <link
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f1f3f5;
+      color: #343a40;
+    }
+    .container {
+      max-width: 600px;
+      margin-top: 3rem;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      font-weight: 700;
+    }
+    .form-group label {
+      font-weight: 500;
+    }
+    #hasilKelulusan {
+      margin-top: 2rem;
+    }
+    .status-lulus {
+      color: #198754; /* hijau */
+      font-weight: 700;
+    }
+    .status-tidak {
+      color: #dc3545; /* merah */
+      font-weight: 700;
+    }
+    .pesan-tambahan {
+      margin-top: 1rem;
+      font-style: italic;
+    }
+    .ttd-madrasah {
+      margin-top: 3rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    .tgl-ttd {
+      text-align: right;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+    .ucapan-lulus {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      color: #0d6efd; /* biru gelap */
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand font-weight-bold" href="index.html">
+        MI Al Hikmah Mijen
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav2"
+        aria-controls="navbarNav2"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav2">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Beranda</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="mb-4 text-center">
+      Cek Kelulusan Siswa<br />
+      MI Al Hikmah Mijen 2024/2025
+    </h2>
+
+    <!-- Form Input NISN -->
+    <form id="formCek">
+      <div class="form-group">
+        <label for="nisnInput">Masukkan NISN Anda</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nisnInput"
+          placeholder="Contoh: 0134931382"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">
+        Cek Status
+      </button>
+    </form>
+
+    <!-- Area Hasil (Awalnya tersembunyi) -->
+    <div id="hasilKelulusan" style="display: none;">
+      <!-- Nama Siswa -->
+      <p id="namaSiswa" class="lead"></p>
+      <!-- Status -->
+      <p id="statusSiswa" class="lead"></p>
+      <!-- Pesan Tambahan (Jika Lulus) -->
+      <p id="pesanTambahan" class="pesan-tambahan"></p>
+      <!-- Tanda Tangan & Tanggal -->
+      <div class="tgl-ttd">Mijen, 02 Juni 2025</div>
+      <div class="ttd-madrasah">
+        H. Imam Tobroni, S.Ag<br />
+        Kepala Madrasah
+      </div>
+      <!-- Ucapan Lulus (Jika Lulus) -->
+      <div id="ucapanLulus" class="ucapan-lulus"></div>
+    </div>
+  </div>
+
+  <!-- Library JS (jQuery & Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <!-- Script untuk memeriksa NISN -->
+  <script>
+    // Data siswa (NISN, Nama, Status)
+    const dataSiswa = [
+      { nisn: "0134931382", nama: "AGUS LUQMANUR KHAKIM", status: "LULUS" },
+      { nisn: "3129529708", nama: "ALIF RIZKY RAMADAN", status: "LULUS" },
+      { nisn: "3121768058", nama: "ARDIKA DWI MAULANA", status: "LULUS" },
+      { nisn: "0127122564", nama: "ASTI SETIYA MULYA ASIH", status: "LULUS" },
+      { nisn: "3123466388", nama: "BELFI AVRILIANE ZAHRA", status: "LULUS" },
+      { nisn: "3130740155", nama: "HAFIZA AULIA QOTRUNNADA", status: "LULUS" },
+      { nisn: "3120897511", nama: "MUHAMMAD FADHIL", status: "LULUS" },
+      { nisn: "3125613412", nama: "MUHAMMAD SHOLAHUDDIN FAIZ", status: "LULUS" },
+      { nisn: "3121408641", nama: "MUHAMMAD YUSUF ABDILLAH", status: "LULUS" },
+      { nisn: "3131583620", nama: "NAIRA RISTI MADINA", status: "LULUS" },
+      { nisn: "0131976005", nama: "NUR RAGIL ASYAKUR", status: "LULUS" },
+      { nisn: "0133755083", nama: "OLIVIA AZZAHRA PRADOPO", status: "LULUS" },
+      { nisn: "3126857032", nama: "RAJENDRA JULIAN PRATAMA", status: "LULUS" },
+      { nisn: "0119483953", nama: "RIZKI ADI SAPUTRA", status: "LULUS" },
+      { nisn: "3123696283", nama: "AGHNIL MUBAROK", status: "LULUS" },
+      { nisn: "3133376335", nama: "AL JAZILLA LUTHFI ISTIQOMAH", status: "LULUS" },
+      { nisn: "3124336432", nama: "ALVA MUHAMMAD NAJCHI", status: "LULUS" },
+      { nisn: "3122118695", nama: "AYUDA HAFIDHIN HASYA", status: "LULUS" },
+      { nisn: "3136942988", nama: "FADHIL MUHAMMAD SAID", status: "LULUS" },
+      { nisn: "0135591633", nama: "HANNAH ALYA KAMEELA", status: "LULUS" },
+      { nisn: "3136226050", nama: "HAYKAL KAMEEL REEZKYADI", status: "LULUS" },
+      { nisn: "3136621391", nama: "IZZATULLABIBAH ZAKKIYYAH", status: "LULUS" },
+      { nisn: "3118721435", nama: "JIHAN QONITA", status: "LULUS" },
+      { nisn: "3138368700", nama: "M. MUSHOFFAL WUJDANI", status: "LULUS" },
+      { nisn: "0123480093", nama: "MARSYA KURROTUL AINI", status: "LULUS" },
+      { nisn: "3128912063", nama: "MUHAMMAD AUFANA WILDAN MUAMMAR", status: "LULUS" },
+      { nisn: "3130714064", nama: "MUHAMMAD DYAS AL FARIDZI", status: "LULUS" },
+      { nisn: "3136658825", nama: "NAFISA ARSHA SYAFIRA", status: "LULUS" },
+      { nisn: "3125980687", nama: "NAJWA AQILA IZZUL KHUSNA", status: "LULUS" },
+      { nisn: "3122937781", nama: "ZAHWA KHIYAROTUL UMMAH", status: "LULUS" }
+    ];
+
+    document.getElementById("formCek").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const inputNisn = document.getElementById("nisnInput").value.trim();
+      const siswa = dataSiswa.find((s) => s.nisn === inputNisn);
+
+      const areaHasil = document.getElementById("hasilKelulusan");
+      const bidangNama = document.getElementById("namaSiswa");
+      const bidangStatus = document.getElementById("statusSiswa");
+      const bidangPesan = document.getElementById("pesanTambahan");
+      const ucapanLulus = document.getElementById("ucapanLulus");
+
+      if (!siswa) {
+        // Jika NISN tidak ditemukan
+        bidangNama.textContent = "NISN tidak ditemukan.";
+        bidangStatus.textContent = "";
+        bidangPesan.textContent = "";
+        ucapanLulus.textContent = "";
+        areaHasil.style.display = "block";
+        bidangStatus.className = "status-tidak";
+        return;
+      }
+
+      // Jika ketemu, tampilkan nama
+      bidangNama.textContent = `Nama: ${siswa.nama}`;
+      // Tampilkan status dengan style berbeda
+      if (siswa.status === "LULUS") {
+        bidangStatus.innerHTML = `Status: <span class="status-lulus">LULUS</span>`;
+        // Tampilkan pesan tambahan
+        bidangPesan.textContent =
+          "Bagi yang dinyatakan lulus, silakan mengambil Surat Keterangan Lulus (SKL) besok Rabu, 4 Juni 2025 dengan berseragam sekolah.";
+        // Tampilkan ucapan besar di bawah
+        ucapanLulus.textContent = "SELAMAT ANDA LULUS";
+      } else {
+        bidangStatus.innerHTML = `Status: <span class="status-tidak">TIDAK LULUS</span>`;
+        bidangPesan.textContent = "";
+        ucapanLulus.textContent = "";
+      }
+
+      areaHasil.style.display = "block";
+    });
+  </script>
+</body>
+</html>
