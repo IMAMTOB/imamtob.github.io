@@ -10,7 +10,7 @@
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     rel="stylesheet"
   />
-  <!-- Google Fonts (opsional, untuk tampilan lebih formal) -->
+  <!-- Google Fonts (opsional) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
     rel="stylesheet"
@@ -23,27 +23,59 @@
       color: #343a40;
     }
 
-    /* Styling Navbar */
+    /* Navbar */
     .navbar {
       background-color: #ffffff;
     }
     .navbar-brand {
       font-weight: 700;
     }
+    .nav-link.disabled {
+      color: #6c757d;
+      pointer-events: none;
+      cursor: default;
+    }
 
-    /* Styling Jumbotron (Header) */
+    /* Jumbotron / Header */
     header.jumbotron {
       background-color: #ffffff;
-      padding: 3rem 1rem;
+      padding: 2.5rem 1rem;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 0;
     }
+
+    /* Judul Utama (Default: desktop/tablet) */
     header.jumbotron h1 {
+      font-size: 2.5rem; /* untuk layar ≥ 768px */
       font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+      text-align: center;
     }
-    header.jumbotron h2 {
-      font-weight: 500;
-      color: #6c757d;
+
+    /* Judul Utama ketika layar ≤ 576px */
+    @media (max-width: 576px) {
+      header.jumbotron h1 {
+        font-size: 1.5rem; /* lebih kecil agar muat di HP kecil */
+      }
+    }
+    /* Judul ukuran menengah (576px–767px) */
+    @media (min-width: 577px) and (max-width: 767px) {
+      header.jumbotron h1 {
+        font-size: 2rem;
+      }
+    }
+
+    /* Logo responsif */
+    .logo-responsive {
+      max-width: 120px; /* default untuk desktop/tablet */
+      height: auto;
+    }
+    /* Logo di layar ≤ 576px */
+    @media (max-width: 576px) {
+      .logo-responsive {
+        max-width: 80px;
+      }
     }
 
     /* Ilustrasi Kelulusan */
@@ -54,21 +86,12 @@
       margin-bottom: 2rem;
     }
 
-    /* Tombol LOGIN & Countdown */
-    .btn-login {
-      font-size: 1.25rem;
-      padding: 0.75rem 1.5rem;
-    }
-    #countdownTimer {
-      font-weight: 500;
-      color: #6c757d; /* abu-abu gelap */
-    }
-
     /* Ucapan Kepala Sekolah */
     .ucapan-kepsek {
-      margin-top: 2rem;
-      font-size: 1.125rem;
+      margin-top: 1.5rem;
+      font-size: 1rem;
       line-height: 1.6;
+      text-align: left;
     }
     .nama-kepsek {
       margin-top: 0.5rem;
@@ -76,12 +99,30 @@
       text-align: right;
     }
 
+    /* Countdown & Tombol LOGIN */
+    #countdownTimer {
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 0.5rem;
+    }
+    .btn-login {
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+    }
+    /* Tombol di layar ≤ 576px (opsional: lebih kecil) */
+    @media (max-width: 576px) {
+      .btn-login {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+
     /* Footer */
     footer {
       background-color: #ffffff;
       padding: 1rem 0;
-      margin-top: 3rem;
-      font-size: 0.9rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
       color: #6c757d;
       text-align: center;
     }
@@ -105,11 +146,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="index.html">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
+            <a
+              id="navLogin"
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+            >
+              Login
+            </a>
           </li>
         </ul>
       </div>
@@ -117,20 +166,20 @@
   </nav>
 
   <!-- Header / Jumbotron -->
-  <header class="jumbotron text-center">
+  <header class="jumbotron">
     <div class="container">
-      <!-- Flexbox: Logo Kiri, Judul, Logo Kanan -->
-      <div class="d-flex justify-content-center align-items-center mb-3">
+      <!-- Flexbox bikin wrap ketika terlalu sempit (flex-wrap) -->
+      <div class="d-flex flex-wrap justify-content-center align-items-center mb-3">
         <!-- Logo Al Hikmah (kiri) -->
         <img
           src="logo-alhikmah.png"
           alt="Logo Al Hikmah"
-          class="img-fluid"
-          style="max-width: 120px; margin-right: 1rem;"
+          class="img-fluid logo-responsive"
+          style="margin: 0.5rem;"
         />
 
-        <!-- Teks Judul Utama -->
-        <h1 class="display-4 mb-0">
+        <!-- Judul Utama -->
+        <h1>
           Pengumuman Kelulusan<br />
           MI Al Hikmah Mijen Kota Semarang
         </h1>
@@ -139,14 +188,14 @@
         <img
           src="logo-bendera.png"
           alt="Logo Bendera"
-          class="img-fluid"
-          style="max-width: 120px; margin-left: 1rem;"
+          class="img-fluid logo-responsive"
+          style="margin: 0.5rem;"
         />
       </div>
       <!-- Akhir Flexbox Judul -->
 
       <!-- Sub-judul Tahun Ajaran -->
-      <h2 class="h5 mb-4">Tahun Ajaran 2024/2025</h2>
+      <h2 class="h5 mb-4 text-center">Tahun Ajaran 2024/2025</h2>
 
       <!-- Ilustrasi Suasana Kelulusan -->
       <img
@@ -156,7 +205,7 @@
       />
 
       <!-- Ucapan Kepala Sekolah -->
-      <div class="ucapan-kepsek text-left px-3 mx-auto" style="max-width: 760px;">
+      <div class="ucapan-kepsek mx-auto" style="max-width: 760px;">
         “Selamat dan sukses kepada siswa-siswi kelas 6 MI Al Hikmah Mijen Kota Semarang
         tahun pelajaran 2024-2025 yang telah menyelesaikan pendidikan selama
         enam tahun dengan penuh semangat dan dedikasi. Semoga ilmu yang didapat
@@ -169,14 +218,14 @@
       </div>
 
       <!-- Bagian Hitung Mundur & Tombol LOGIN -->
-      <div class="mt-5 text-center">
+      <div class="mt-4 text-center">
         <!-- Countdown Timer -->
-        <div id="countdownTimer" class="h5 mb-3"></div>
+        <div id="countdownTimer" class="h5"></div>
 
         <!-- Tombol LOGIN (disabled sebelum jam 17.00) -->
         <button
           id="loginBtn"
-          class="btn btn-primary btn-lg btn-login"
+          class="btn btn-primary btn-login"
           disabled
           onclick="window.location.href='login.html'"
         >
@@ -198,41 +247,49 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
   ></script>
 
-  <!-- Script untuk Countdown Timer hingga jam 17.00 -->
+  <!-- Script untuk Countdown Timer hingga jam 17.00 dan mengaktifkan link Login di navbar -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const loginBtn = document.getElementById('loginBtn');
+      const navLogin = document.getElementById('navLogin');
       const countdownEl = document.getElementById('countdownTimer');
 
-      // Tentukan waktu target: hari ini pukul 17:00:00.000 (zona waktu lokal)
+      // Waktu target: hari ini pukul 17:00:00.000
       const now = new Date();
       const target = new Date();
-      target.setHours(17, 0, 0, 0); // jam 17:00:00.000 hari ini
+      target.setHours(17, 0, 0, 0);
 
-      // Jika sekarang sudah melewati jam 17.00, langsung aktifkan tombol
+      // Fungsi meng-enable link Login di navbar
+      function enableNavLogin() {
+        navLogin.classList.remove('disabled');
+        navLogin.removeAttribute('tabindex');
+        navLogin.removeAttribute('aria-disabled');
+        navLogin.setAttribute('href', 'login.html');
+      }
+
+      // Cek jika sudah lewat jam 17.00
       if (now >= target) {
         countdownEl.textContent = 'Login sudah dibuka.';
         loginBtn.disabled = false;
+        enableNavLogin();
         return;
       }
 
-      // Fungsi untuk memperbarui countdown setiap detik
+      // Fungsi hitung mundur
       function updateCountdown() {
         const current = new Date();
-        const diff = target - current; // selisih (milidetik)
+        const diff = target - current;
 
         if (diff <= 0) {
-          // Waktu telah tercapai → enable tombol dan hentikan timer
           countdownEl.textContent = 'Login sudah dibuka.';
           loginBtn.disabled = false;
+          enableNavLogin();
           clearInterval(intervalId);
         } else {
-          // Hitung jam, menit, detik tersisa
           const hours = Math.floor(diff / (1000 * 60 * 60));
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-          // Tampilkan teks countdown
           countdownEl.textContent =
             'Login dibuka dalam ' +
             hours +
@@ -241,14 +298,18 @@
             ' menit ' +
             seconds +
             ' detik';
-          // Pastikan tombol tetap non-aktif sebelum waktunya
+
+          // Pastikan tombol dan link tetap disabled sebelum waktunya
           loginBtn.disabled = true;
+          navLogin.classList.add('disabled');
+          navLogin.setAttribute('href', '#');
+          navLogin.setAttribute('tabindex', '-1');
+          navLogin.setAttribute('aria-disabled', 'true');
         }
       }
 
-      // Panggil sekali untuk menampilkan hitung mundur segera
+      // Jalankan segera, lalu update tiap detik
       updateCountdown();
-      // Atur interval agar updateCountdown() berjalan tiap 1 detik
       const intervalId = setInterval(updateCountdown, 1000);
     });
   </script>
